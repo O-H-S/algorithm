@@ -1,0 +1,14 @@
+from itertools import permutations
+
+def solution(k, dungeons):
+    result = permutations(dungeons, len(dungeons))
+    maxCount = 0
+    for p in result:
+        curK = k
+        curCount = 0
+        for idx, d in enumerate(p):
+            if curK >= d[0] and curK >= d[1]:
+                curK -= d[1]
+                curCount+= 1
+        maxCount = max(curCount, maxCount)
+    return maxCount

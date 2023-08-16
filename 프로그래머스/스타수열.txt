@@ -1,0 +1,36 @@
+def solution(a):
+
+    lastDigitPos = {}
+    pairCounts = {}
+    
+    def getLastPos(numb):
+        if numb in lastDigitPos:
+            return lastDigitPos[numb]
+        lastDigitPos[numb] = -1
+        return -1
+    
+    def getPairCount(numb):
+        if numb in pairCounts:
+            return pairCounts[numb]
+        pairCounts[numb] = 0
+        return 0
+    
+    prev = a[0]
+    for i in range(1, len(a)):
+        
+        if prev != a[i]:
+            if getLastPos(prev) < i-1:
+                pairCounts[prev]  = getPairCount(prev) +1
+                lastDigitPos[prev] = i 
+            if getLastPos(a[i]) < i-1:
+                pairCounts[a[i]]  = getPairCount(a[i]) +1
+                lastDigitPos[a[i]] = i
+        else:
+            pass
+        prev = a[i]
+
+    counts = pairCounts.values()
+    if counts:
+        return max(counts)*2
+    
+    return 0
